@@ -1,16 +1,17 @@
 class Solution {
 public:
-    int rangeBitwiseAnd(int left, int right) {
-        int shift = 0;
+    int rangeBitwiseAnd(int m, int n) {
+        // edge case - zero AND anything will always stay zero
+        if ((m == 0) || (n == 0)) return 0;
         
-        // Keep shifting left and right until they become equal
-        while (left != right) {
-            left >>= 1;
-            right >>= 1;
-            shift++;
-        }
+        // if there is a different amount of digits in binary - always will be zero
+        if ((int)log2(m) != (int)log2(n)) return 0;
         
-        // Shift back to the left to restore the common prefix
-        return left << shift;
+        // None of the above - not too many numbers left to calculate one by one...
+        int res = m;
+        for (long i = m; i <= n; i++)
+            res &= i;
+                
+        return res;
     }
 };
